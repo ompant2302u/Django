@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+<!-- Bootstrap CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    .fade-in {
+        animation: fadeIn 1.5s ease-in;
+    }
+
+    .slide-up {
+        animation: slideUp 1.2s ease-out;
+    }
+
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
+
+<div class="container my-5 fade-in">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">About Our Company</h1>
+        <p class="text-muted mt-3">
+            Building reliable, scalable, and modern web solutions using Django.
+        </p>
+    </div>
+
+    <div class="row g-4 slide-up">
+        <div class="col-md-4">
+            <div class="card h-100 p-4 hover-card">
+                <h4 class="fw-semibold">Who We Are</h4>
+                <p>
+                    We are a passionate development team focused on creating
+                    high-quality web applications. Our approach is simple:
+                    write clean code, solve real problems, and deliver value.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 p-4 hover-card">
+                <h4 class="fw-semibold">What We Do</h4>
+                <p>
+                    From backend architecture to full-stack development, we
+                    specialize in Django-based solutions that are secure,
+                    scalable, and easy to maintain.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 p-4 hover-card">
+                <h4 class="fw-semibold">Our Values</h4>
+                <p>
+                    Transparency, consistency, and long-term thinking guide
+                    every project we work on. We believe software should grow
+                    with your needs.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 slide-up">
+        <h3 class="fw-bold mb-3">Why Choose Us</h3>
+        <p>
+            We work closely with clients to understand their goals and transform
+            ideas into reliable digital products. No shortcuts. No guesswork.
+            Just well-built software.
+        </p>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">✔ Clean and maintainable code</li>
+            <li class="list-group-item">✔ Scalable Django architecture</li>
+            <li class="list-group-item">✔ Fast communication and updates</li>
+            <li class="list-group-item">✔ Long-term technical support</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
