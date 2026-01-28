@@ -2,137 +2,497 @@
 
 {% block title %}Home - My Store{% endblock %}
 
+{% block extra_css %}
+/* Stats */
+.stats-section {
+    margin-top: -4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+/* Feature Card */
+.feature-card {
+    background: var(--card);
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+    transition: all 0.4s ease;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.feature-icon.delivery {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    color: #2563eb;
+}
+
+.feature-icon.secure {
+    background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+    color: #16a34a;
+}
+
+.feature-icon.quality {
+    background: linear-gradient(135deg, #fce7f3, #fdf2f8);
+    color: #db2777;
+}
+
+.feature-icon.support {
+    background: linear-gradient(135deg, #fef3c7, #fffbeb);
+    color: #d97706;
+}
+
+/* Testimonials */
+.testimonial-card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 24px;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.4s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.testimonial-rating {
+    color: #fbbf24;
+}
+
+.testimonial-text {
+    color: var(--dark);
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Services */
+.service-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    height: 100%;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-8px);
+}
+
+.service-card .text-muted {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+/* Partners */
+.partner-logo {
+    color: var(--muted);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+.partner-logo:hover {
+    opacity: 1;
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .stats-card {
+        padding: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+}
+{% endblock %}
+
 {% block content %}
+<!-- HERO -->
+<section class="hero text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 fade-up">
+                <p class="text-uppercase fw-semibold mb-3" style="color: var(--accent); letter-spacing: 3px; font-size: 0.9rem;">Welcome to MyStore</p>
+                <h1 class="fw-bold mb-4">
+                    Premium <span>Products</span> for Everyday Life
+                </h1>
+                <p class="text-light opacity-75 fs-5 mb-5" style="max-width: 600px; margin: 0 auto;">
+                    Discover quality items with trusted delivery. Designed to elevate your lifestyle with carefully curated collections.
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="#products" class="btn hero-btn text-white">
+                        <i class="bi bi-bag-check me-2"></i>Shop Now
+                    </a>
+                    <a href="#features" class="btn hero-secondary-btn">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<!-- Bootstrap CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- STATS -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-card">
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">2K+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<style>
-    /* Page animations */
-    .fade-in {
-        animation: fadeIn 1.2s ease-in;
-    }
-
-    .slide-up {
-        animation: slideUp 1s ease-out;
-    }
-
-    @keyframes navGlow {
-        from { box-shadow: 0 0 10px rgba(13,110,253,0.4); }
-        to { box-shadow: 0 0 25px rgba(102,16,242,0.7); }
-    }
-
-    /* Product card */
-    .product-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .product-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-
-    /* Button animation */
-    .btn-animate {
-        transition: all 0.3s ease;
-    }
-
-    .btn-animate:hover {
-        transform: scale(1.05);
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-        from { transform: translateY(40px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-</style>
-
-<div class="container fade-in">
-
-    <!-- Hero Section -->
-    <div class="text-center mb-5 slide-up">
-        <h1 class="fw-bold">Welcome to My E-Commerce Store</h1>
-        <p class="text-muted fs-5 mt-3">
-            Discover high-quality products at affordable prices, delivered
-            with trust and reliability.
+<!-- FEATURES -->
+<section id="features" class="section">
+    <div class="container text-center">
+        <p class="text-uppercase fw-semibold mb-2" style="color: var(--accent); letter-spacing: 2px; font-size: 0.85rem;">Why Choose Us</p>
+        <h2 class="section-title">A Shopping Experience Built on Trust</h2>
+        <p class="section-subtitle">
+            We combine quality products, fast delivery, and exceptional service to bring you the best online shopping experience.
         </p>
-        <a href="#" class="btn btn-primary btn-lg btn-animate mt-3">
-            Shop Now
-        </a>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 fade-up fade-up-delay-1">
+                <div class="feature-card">
+                    <div class="feature-icon delivery">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Fast Delivery</h5>
+                    <p class="text-muted mb-0">
+                        Quick and reliable shipping on every order. Get your items within 2-3 business days.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 fade-up fade-up-delay-2">
+                <div class="feature-card">
+                    <div class="feature-icon secure">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Secure Payments</h5>
+                    <p class="text-muted mb-0">
+                        Safe and encrypted checkout experience. Your data is always protected.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 fade-up fade-up-delay-3">
+                <div class="feature-card">
+                    <div class="feature-icon quality">
+                        <i class="bi bi-gem"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Quality Assured</h5>
+                    <p class="text-muted mb-0">
+                        Carefully curated products you can trust. Every item passes quality checks.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 fade-up">
+                <div class="feature-card">
+                    <div class="feature-icon support">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">24/7 Support</h5>
+                    <p class="text-muted mb-0">
+                        Our team is always here to help. Get answers to your questions anytime.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
-    <!-- Info Section -->
-    <div class="row text-center mb-5 slide-up">
-        <div class="col-md-4">
-            <h5 class="fw-semibold">Fast Delivery</h5>
-            <p class="text-muted">
-                Quick and reliable shipping so you get your products on time.
+<!-- TESTIMONIALS -->
+<section class="section" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="text-uppercase fw-semibold mb-2" style="color: var(--accent); letter-spacing: 2px; font-size: 0.85rem;">Testimonials</p>
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">
+                Real feedback from real customers who love our products and service.
             </p>
         </div>
-        <div class="col-md-4">
-            <h5 class="fw-semibold">Secure Payments</h5>
-            <p class="text-muted">
-                All transactions are protected with industry-standard security.
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h5 class="fw-semibold">Quality Guaranteed</h5>
-            <p class="text-muted">
-                Every product is carefully selected and quality checked.
-            </p>
-        </div>
-    </div>
 
-    <!-- Products Section -->
-    <h2 class="fw-bold mb-4 slide-up">Featured Products</h2>
-
-    {% if products %}
-        <div class="row g-4 slide-up">
-            {% for product in products %}
-                <div class="col-md-4">
-                    <div class="card h-100 product-card">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                        {% endif %}
-
-                        <div class="card-body">
-                            <h5 class="card-title fw-semibold">{{ product.name }}</h5>
-                            <p class="card-text text-muted">
-                                {{ product.description|truncatechars:100 }}
-                            </p>
-                            <p class="fw-bold">Price: ${{ product.price }}</p>
-                            <a href="#" class="btn btn-outline-primary btn-animate">
-                                View Details
-                            </a>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"Absolutely amazing experience! The product quality exceeded my expectations and the delivery was incredibly fast. Will definitely be ordering again."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #dbeafe, #eff6ff); color: #2563eb;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
+                            <small class="text-muted">Verified Buyer</small>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+
+            <div class="col-md-6 col-lg-4 fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"Customer service is top-notch! Had a small issue with my order and they resolved it within hours. This is how business should be done."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #dcfce7, #f0fdf4); color: #16a34a;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Michael Chen</h6>
+                            <small class="text-muted">Verified Buyer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                    <p class="testimonial-text">"I've been a loyal customer for over a year now. The consistency in quality and value keeps me coming back. Highly recommend to everyone!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #fce7f3, #fdf2f8); color: #db2777;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Emily Rodriguez</h6>
+                            <small class="text-muted">Verified Buyer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% else %}
-        <p class="text-muted">
-            No products available at the moment. Please check back later.
-        </p>
-    {% endif %}
-
-    <!-- Trust Section -->
-    <div class="mt-5 p-4 bg-light rounded slide-up">
-        <h3 class="fw-bold">Why Shop With Us?</h3>
-        <p class="text-muted">
-            We focus on customer satisfaction, transparent pricing, and
-            long-term relationships. Thousands of customers trust us for
-            their everyday shopping needs.
-        </p>
     </div>
+</section>
 
-</div>
+<!-- SERVICES -->
+<section id="services" class="section" style="background: var(--dark); color: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="text-uppercase fw-semibold mb-2" style="color: var(--accent); letter-spacing: 2px; font-size: 0.85rem;">Our Services</p>
+            <h2 class="section-title" style="color: white;">What We Offer</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.6);">
+                Comprehensive solutions designed to meet all your needs with excellence and precision.
+            </p>
+        </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-palette"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Custom Design</h5>
+                    <p class="text-muted mb-0">Personalized solutions tailored to your unique requirements and preferences.</p>
+                </div>
+            </div>
 
+            <div class="col-md-6 col-lg-3 fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Express Delivery</h5>
+                    <p class="text-muted mb-0">Priority shipping options for urgent orders with real-time tracking.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Easy Returns</h5>
+                    <p class="text-muted mb-0">Hassle-free 30-day return policy with full refund guarantee.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-gift"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Gift Wrapping</h5>
+                    <p class="text-muted mb-0">Premium gift packaging available for all orders at no extra cost.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PARTNERS / BRANDS -->
+<section class="section">
+    <div class="container text-center">
+        <p class="text-uppercase fw-semibold mb-4" style="color: var(--muted); letter-spacing: 2px; font-size: 0.85rem;">Trusted By Leading Brands</p>
+        <div class="row align-items-center justify-content-center g-4">
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-apple" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-google" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-microsoft" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-amazon" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-spotify" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 fade-up">
+                <div class="partner-logo">
+                    <i class="bi bi-slack" style="font-size: 2.5rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
