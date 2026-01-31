@@ -3,33 +3,194 @@
 {% block title %}Shopping Cart{% endblock %}
 
 {% block content %}
-<h1>Your Shopping Cart</h1>
+<style>
+    .cart-wrapper {
+        max-width: 1000px;
+        margin: 3rem auto;
+        animation: fadeIn 0.6s ease-in-out;
+    }
 
-{% if cart_items %}
-    <table border="1">
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-        {% for item in cart_items %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>${{ item.product.price }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.total_price }}</td>
-            <td>
-                <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <h3>Total: ${{ total }}</h3>
-    <button class="btn">Checkout</button>
-{% else %}
-    <p>Your cart is empty!</p>
-    <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
-{% endif %}
+    .cart-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        padding: 2rem;
+    }
+
+    .cart-card h1 {
+        margin-bottom: 1.5rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    th {
+        background: #f7f8fc;
+        font-weight: 600;
+    }
+
+    .product-name {
+        text-align: left;
+        font-weight: 500;
+    }
+
+    .remove-link {
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .remove-link:hover {
+        text-decoration: underline;
+    }
+
+    .cart-summary {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .total-amount {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    .cart-actions {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-primary {
+        padding: 12px 22px;
+        border-radius: 8px;
+        border: none;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline {
+        padding: 12px 22px;
+        border-radius: 8px;
+        border: 1px solid #667eea;
+        background: transparent;
+        color: #667eea;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+        background: #667eea;
+        color: #fff;
+    }
+
+    .empty-cart {
+        text-align: center;
+        margin-top: 3rem;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .empty-cart p {
+        margin-bottom: 1rem;
+        color: #555;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        th:nth-child(2),
+        td:nth-child(2) {
+            display: none;
+        }
+    }
+</style>
+
+<div class="cart-wrapper">
+    <div class="cart-card">
+        <h1>Your Shopping Cart</h1>
+
+        {% if cart_items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td class="product-name">{{ item.product.name }}</td>
+                        <td>${{ item.product.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.total_price }}</td>
+                        <td>
+                            <a href="{% url 'remove_from_cart' item.id %}" class="remove-link">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <div class="total-amount">
+                    Total: ${{ total }}
+                </div>
+
+                <div class="cart-actions">
+                    <a href="{% url 'home' %}" class="btn-outline">
+                        Continue Shopping
+                    </a>
+                    <a href="{% url 'checkout' %}" class="btn-primary">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="empty-cart">
+                <p>Your cart is empty.</p>
+                <a href="{% url 'home' %}" class="btn-primary">
+                    Continue Shopping
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+from django.db import transaction
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .models import Product, Category, Cart
@@ -16,16 +19,28 @@ def home(request):
         'categories': categories
     })
 
-def product_detail(request, id):
-    product = get_object_or_404(Product, id=id)
-    return render(request, 'product_detail.html', {'product': product})
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'product.html', {'product': product})
+
 def search_products(request):
     query = request.GET.get('q', '')
     products = Product.objects.filter(name__icontains=query) if query else []
-    return render(request, 'search_results.html', {
+    return render(request, 'search.html', {
         'products': products,
         'query': query
     })
+
+def category_view(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = category.products.all()
+    return render(request, 'category.html', {
+        'category': category,
+        'products': products
+    })
+
+def profile_view(request):
+    return render(request, 'profile.html')
 
 def about(request):
     return render(request, 'about.html')
@@ -88,3 +103,39 @@ def add_to_cart(request, product_id):
 def remove_from_cart(request, cart_id):
     Cart.objects.filter(id=cart_id, user=request.user).delete()
     return redirect('cart')
+
+def checkout(request):
+    cart_items = Cart.objects.filter(user=request.user)
+
+    if not cart_items.exists():
+        messages.warning(request, "Your cart is empty.")
+        return redirect('home')
+
+    if request.method == "POST":
+        with transaction.atomic():
+            for item in cart_items:
+                product = item.product
+
+                if product.stock < item.quantity:
+                    messages.error(
+                        request,
+                        f"Not enough stock for {product.name}."
+                    )
+                    return redirect('checkout')
+
+                # Deduct stock
+                product.stock -= item.quantity
+                product.save()
+
+            # Clear cart AFTER stock deduction
+            cart_items.delete()
+
+        messages.success(request, "Order placed successfully!")
+        return redirect('home')
+
+    total = sum(item.total_price() for item in cart_items)
+
+    return render(request, 'checkout.html', {
+        'cart_items': cart_items,
+        'total': total
+    })

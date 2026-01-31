@@ -5,8 +5,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('product/<int:id>/', views.product_detail, name='product_detail'),
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('search/', views.search_products, name='search_products'),
+    path('category/<int:category_id>/', views.category_view, name='category'),
+        path('checkout/', views.checkout, name='checkout'),
 
     
     # Authentication

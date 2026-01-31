@@ -30,15 +30,14 @@
             <a href="{% url 'contact' %}" class="nav-link {% if request.path == '/contact/' %}active{% endif %}">
                 <i class="fas fa-envelope"></i> Contact
             </a>
-            
+
             <!-- Search Bar (optional) -->
             <div class="search-box">
-    <form action="{% url 'search_products' %}" method="get">
-        <input type="text" name="q" id="searchInput" placeholder="Search products...">
-        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-    </form>
-</div>
-
+                <form action="{% url 'search_products' %}" method="get">
+                    <input type="text" name="q" id="searchInput" placeholder="Search products...">
+                    <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
             
             <!-- Cart -->
             <a href="{% url 'cart' %}" class="cart-icon">
