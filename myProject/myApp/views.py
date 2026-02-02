@@ -34,10 +34,14 @@ def search_products(request):
 def category_view(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     products = category.products.all()
+    categories = Category.objects.all()
+
     return render(request, 'category.html', {
         'category': category,
-        'products': products
+        'products': products,
+        'categories': categories
     })
+
 
 def profile_view(request):
     return render(request, 'profile.html')

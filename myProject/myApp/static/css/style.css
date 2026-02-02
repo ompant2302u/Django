@@ -1107,3 +1107,31 @@ footer {
     transform: scale(1.08);
     filter: brightness(1.05);
 }
+.top-categories {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 0.8rem 0;
+}
+
+.categories {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.category-tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: #f1f3f5;
+    color: #333;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.category-tag:hover,
+.category-tag.active {
+    background: #667eea;
+    color: #fff;
+}

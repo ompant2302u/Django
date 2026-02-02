@@ -1,49 +1,179 @@
 {% extends 'base.html' %}
 
-{% block title %}About Us - My Store{% endblock %}
+{% block title %}About Us | My Store{% endblock %}
 
 {% block content %}
 
-<!-- PAGE HEADER -->
-<section class="page-header">
-    <div class="container">
+<style>
+/* ---------- GLOBAL ---------- */
+.section {
+    padding: 5rem 0;
+}
+.section-title {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.section-subtitle {
+    color: #6b7280;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* ---------- HERO ---------- */
+.about-hero {
+    position: relative;
+    background: linear-gradient(135deg, #111827, #1f2933);
+    color: #fff;
+    padding: 6rem 0;
+    overflow: hidden;
+}
+.about-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 60%);
+}
+.about-hero h1 {
+    font-size: 3rem;
+}
+.about-hero span {
+    color: #60a5fa;
+}
+
+/* ---------- INFO ---------- */
+.about-highlight {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+.about-highlight:hover {
+    transform: translateY(-6px);
+}
+.about-icon {
+    font-size: 2rem;
+    color: #3b82f6;
+}
+
+/* ---------- VALUES ---------- */
+.value-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.1);
+}
+.value-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e5e7eb;
+}
+.timeline-item {
+    margin-bottom: 2rem;
+    position: relative;
+}
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    background: #3b82f6;
+    border-radius: 50%;
+}
+.timeline-year {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* ---------- TEAM ---------- */
+.team-card {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+.team-card:hover {
+    transform: translateY(-8px);
+}
+.team-image {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+.team-body {
+    padding: 1.5rem;
+}
+</style>
+
+<!-- HERO -->
+<section class="about-hero text-center">
+    <div class="container position-relative">
         <h1>About <span>Us</span></h1>
-        <p class="text-light mt-2" style="font-size:1.2rem; opacity:0.8;">
-            Building quality experiences, one product at a time.
+        <p class="mt-3 text-light opacity-75 fs-5">
+            We don’t just sell products. We build experiences people trust.
         </p>
     </div>
 </section>
 
-<!-- ABOUT -->
+<!-- STORY -->
 <section class="section">
     <div class="container">
-        <div class="row align-items-center g-5">
+        <div class="row g-5 align-items-center">
             <div class="col-lg-6">
-                <h2 class="section-title text-start mb-4">
-                    Delivering Quality You Can Trust
+                <h2 class="section-title mb-4">
+                    Crafted with Purpose
                 </h2>
-
                 <p class="text-muted mb-3">
-                    Our journey began as a small team with a big vision: to create a seamless shopping experience for everyone. Today, we’ve grown into a brand known for reliability, quality, and innovation.
+                    What started as a small idea has grown into a brand focused on quality, transparency, and customer happiness.
                 </p>
-
-                <p class="text-muted mb-4">
-                    Every product is carefully selected to provide real value, and every customer interaction is handled with care. Our goal is not just to sell, but to create memorable experiences.
+                <p class="text-muted">
+                    Every decision we make is guided by one question: does this improve the customer experience?
                 </p>
+            </div>
 
+            <div class="col-lg-6">
                 <div class="row g-4">
                     <div class="col-6">
-                        <div class="about-stat">
-                            <i class="bi bi-award-fill"></i>
-                            <h5>Premium Quality</h5>
-                            <small>Products you can trust</small>
+                        <div class="about-highlight text-center">
+                            <div class="about-icon mb-2">
+                                <i class="bi bi-award-fill"></i>
+                            </div>
+                            <h6 class="mb-1">Quality First</h6>
+                            <small class="text-muted">Carefully selected products</small>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="about-stat">
-                            <i class="bi bi-globe"></i>
-                            <h5>Global Reach</h5>
-                            <small>Delivering worldwide</small>
+                        <div class="about-highlight text-center">
+                            <div class="about-icon mb-2">
+                                <i class="bi bi-globe2"></i>
+                            </div>
+                            <h6 class="mb-1">Global Reach</h6>
+                            <small class="text-muted">Serving worldwide</small>
                         </div>
                     </div>
                 </div>
@@ -53,12 +183,12 @@
 </section>
 
 <!-- VALUES -->
-<section class="section" style="background:#f8fafc;">
+<section class="section bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title">Our Core Values</h2>
+            <h2 class="section-title">Our Values</h2>
             <p class="section-subtitle">
-                What drives us every day
+                Principles that guide everything we do
             </p>
         </div>
 
@@ -66,30 +196,30 @@
             <div class="col-md-6 col-lg-3">
                 <div class="value-card">
                     <div class="value-icon text-danger">
-                        <i class="bi bi-heart-pulse-fill"></i>
+                        <i class="bi bi-heart-fill"></i>
                     </div>
                     <h5>Customer First</h5>
-                    <p>Everything we do starts with our customers.</p>
+                    <p class="text-muted">People always come before profits.</p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="value-card">
                     <div class="value-icon text-primary">
-                        <i class="bi bi-shield-lock-fill"></i>
+                        <i class="bi bi-shield-check"></i>
                     </div>
-                    <h5>Integrity</h5>
-                    <p>We operate transparently and ethically.</p>
+                    <h5>Trust</h5>
+                    <p class="text-muted">Honest pricing and transparency.</p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="value-card">
                     <div class="value-icon text-warning">
-                        <i class="bi bi-lightning-charge-fill"></i>
+                        <i class="bi bi-lightning-fill"></i>
                     </div>
                     <h5>Innovation</h5>
-                    <p>Constantly improving to deliver the best experience.</p>
+                    <p class="text-muted">Always improving our platform.</p>
                 </div>
             </div>
 
@@ -99,7 +229,7 @@
                         <i class="bi bi-people-fill"></i>
                     </div>
                     <h5>Teamwork</h5>
-                    <p>Collaboration makes us stronger and smarter.</p>
+                    <p class="text-muted">Great things are built together.</p>
                 </div>
             </div>
         </div>
@@ -109,40 +239,31 @@
 <!-- JOURNEY -->
 <section class="section">
     <div class="container">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-5">
-                <h2 class="section-title text-start mb-4">
-                    Our Journey
-                </h2>
-                <p class="text-muted mb-3">
-                    Over the years, we’ve grown, learned, and evolved. Here’s a snapshot of our milestones.
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <h2 class="section-title mb-3">Our Journey</h2>
+                <p class="text-muted">
+                    A few milestones that shaped who we are today.
                 </p>
             </div>
 
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-year">2016</div>
-                        <h5>The Beginning</h5>
-                        <p>Started with a small passionate team and big ideas.</p>
+                        <p>Launched with a small but passionate team.</p>
                     </div>
-
                     <div class="timeline-item">
                         <div class="timeline-year">2019</div>
-                        <h5>Growth Phase</h5>
-                        <p>Expanded our product catalog and reached more customers.</p>
+                        <p>Expanded product range and logistics.</p>
                     </div>
-
                     <div class="timeline-item">
                         <div class="timeline-year">2022</div>
-                        <h5>Global Expansion</h5>
-                        <p>Began serving customers worldwide with fast delivery.</p>
+                        <p>Started serving international customers.</p>
                     </div>
-
                     <div class="timeline-item">
                         <div class="timeline-year">2026</div>
-                        <h5>Future Vision</h5>
-                        <p>Focusing on innovation, sustainability, and customer delight.</p>
+                        <p>Focused on sustainability and innovation.</p>
                     </div>
                 </div>
             </div>
@@ -151,57 +272,42 @@
 </section>
 
 <!-- TEAM -->
-<section class="section" style="background:#f8fafc;">
+<section class="section bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title">Meet Our Team</h2>
+            <h2 class="section-title">Meet the Team</h2>
             <p class="section-subtitle">
-                Dedicated people behind the brand
+                People behind the vision
             </p>
         </div>
 
         <div class="row g-4 justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <div class="team-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500"
-                        class="team-image"
-                        style="aspect-ratio: 1 / 1; object-fit: cover;"
-                        alt="Founder"
-                    >
+                    <img src="https://t3.ftcdn.net/jpg/02/95/51/66/360_F_295516639_43GmJBPVbPza25AUfC59keJIYRUTaPqV.jpg" class="team-image" alt="">
                     <div class="team-body">
                         <h5>John Smith</h5>
-                        <p>Founder & CEO</p>
+                        <small class="text-muted">Founder & CEO</small>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
                 <div class="team-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500"
-                        class="team-image"
-                        style="aspect-ratio: 1 / 1; object-fit: cover;"
-                        alt="Operations Lead"
-                    >
+                    <img src="https://img.freepik.com/free-photo/lifestyle-people-emotions-casual-concept-confident-nice-smiling-asian-woman-cross-arms-chest-confident-ready-help-listening-coworkers-taking-part-conversation_1258-59335.jpg" class="team-image" alt="">
                     <div class="team-body">
                         <h5>Sarah Williams</h5>
-                        <p>Operations Lead</p>
+                        <small class="text-muted">Operations Lead</small>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
                 <div class="team-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500"
-                        class="team-image"
-                        style="aspect-ratio: 1 / 1; object-fit: cover;"
-                        alt="Lead Developer"
-                    >
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600" class="team-image" alt="">
                     <div class="team-body">
                         <h5>Mike Johnson</h5>
-                        <p>Lead Developer</p>
+                        <small class="text-muted">Lead Developer</small>
                     </div>
                 </div>
             </div>
