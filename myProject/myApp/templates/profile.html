@@ -1,193 +1,436 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}My Profile{% endblock %}
+{% block title %}My Profile - ShopEasy{% endblock %}
 
 {% block content %}
 <style>
-    .profile-wrapper {
-        max-width: 900px;
-        margin: 3rem auto;
-        animation: fadeIn 0.6s ease-in-out;
-    }
+.profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    animation: fadeIn 0.8s ease;
+}
 
-    .profile-card {
-        background: #fff;
-        border-radius: 14px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        overflow: hidden;
-    }
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    animation: slideInLeft 0.6s ease;
+}
 
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #667eea;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.profile-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    animation: slideInRight 0.6s ease;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+.tab-btn:hover {
+    background: var(--light);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h2 {
+    margin-bottom: 2rem;
+    color: var(--dark);
+    font-size: 2rem;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+    animation: scaleIn 0.5s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.order-header h3 {
+    font-size: 1.4rem;
+    color: var(--dark);
+}
+
+.order-date {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.order-items {
+    margin-bottom: 1rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.order-item-info strong {
+    color: var(--dark);
+}
+
+.order-item-info span {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.order-item-total {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.order-total {
+    text-align: right;
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+}
+
+.settings-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    animation: fadeIn 0.6s ease;
+}
+
+.settings-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span {
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.info-row strong {
+    color: var(--dark);
+}
+
+@media (max-width: 768px) {
     .profile-header {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: #fff;
-        padding: 2.5rem;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
+        flex-direction: column;
+        text-align: center;
     }
-
-    .profile-avatar {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.2rem;
-        font-weight: 600;
-        text-transform: uppercase;
+    
+    .profile-tabs {
+        flex-direction: column;
     }
-
-    .profile-header h2 {
-        margin: 0;
-        font-size: 1.6rem;
-    }
-
-    .profile-header p {
-        margin: 0.3rem 0 0;
-        opacity: 0.9;
-        font-size: 0.95rem;
-    }
-
-    .profile-body {
-        padding: 2rem;
-    }
-
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .info-item {
-        background: #f7f8fc;
-        padding: 1.2rem;
-        border-radius: 10px;
-    }
-
-    .info-item label {
-        display: block;
-        font-size: 0.85rem;
-        color: #777;
-        margin-bottom: 0.4rem;
-    }
-
-    .info-item span {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #333;
-    }
-
-    .profile-actions {
-        display: flex;
-        flex-wrap: wrap;
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 1rem;
-        margin-top: 1.5rem;
     }
-
-    .btn-primary {
-        padding: 12px 20px;
-        border-radius: 8px;
-        border: none;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: #fff;
-        font-size: 0.95rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-        text-decoration: none;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-outline {
-        padding: 12px 20px;
-        border-radius: 8px;
-        background: transparent;
-        border: 1px solid #667eea;
-        color: #667eea;
-        font-size: 0.95rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        text-decoration: none;
-    }
-
-    .btn-outline:hover {
-        background: #667eea;
-        color: #fff;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @media (max-width: 600px) {
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
+}
 </style>
 
-<div class="profile-wrapper">
-    <div class="profile-card">
-        <!-- Header -->
-        <div class="profile-header">
-            <div class="profile-avatar">
-                {{ user.username|first }}
-            </div>
-            <div>
-                <h2>{{ user.get_full_name|default:user.username }}</h2>
-                <p>{{ user.email }}</p>
-            </div>
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            <i class="fas fa-user-circle"></i>
         </div>
-
-        <!-- Body -->
-        <div class="profile-body">
-            <div class="info-grid">
-                <div class="info-item">
-                    <label>Username</label>
-                    <span>{{ user.username }}</span>
+        <div class="profile-info">
+            <h1>{{ user.username }}</h1>
+            <p><i class="fas fa-envelope"></i> {{ user.email|default:"No email set" }}</p>
+            <p><i class="fas fa-calendar"></i> Member since {{ user.date_joined|date:"F Y" }}</p>
+        </div>
+    </div>
+    
+    <div class="profile-tabs">
+        <button class="tab-btn active" onclick="showTab('orders')">
+            <i class="fas fa-box"></i> My Orders
+        </button>
+        <button class="tab-btn" onclick="showTab('wishlist')">
+            <i class="fas fa-heart"></i> Wishlist
+        </button>
+        <button class="tab-btn" onclick="showTab('settings')">
+            <i class="fas fa-cog"></i> Settings
+        </button>
+    </div>
+    
+    <!-- Orders Tab -->
+    <div id="orders-tab" class="tab-content active">
+        <h2><i class="fas fa-box"></i> Order History</h2>
+        
+        {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h3>Order #{{ order.id }}</h3>
+                        <p class="order-date">{{ order.created_at|date:"F d, Y - g:i A" }}</p>
+                    </div>
+                    <div class="order-status">
+                        <span class="status-badge status-{{ order.status }}">
+                            {{ order.status|title }}
+                        </span>
+                    </div>
                 </div>
-
-                <div class="info-item">
-                    <label>Email</label>
-                    <span>{{ user.email }}</span>
+                
+                <div class="order-items">
+                    {% for item in order.items.all %}
+                    <div class="order-item">
+                        <div class="order-item-info">
+                            <strong>{{ item.product.name }}</strong>
+                            <span>Qty: {{ item.quantity }} × ${{ item.price }}</span>
+                        </div>
+                        <div class="order-item-total">
+                            ${{ item.item_total }}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-
-                <div class="info-item">
-                    <label>Joined</label>
-                    <span>{{ user.date_joined|date:"F d, Y" }}</span>
-                </div>
-
-                <div class="info-item">
-                    <label>Last Login</label>
-                    <span>{{ user.last_login|date:"F d, Y • H:i" }}</span>
+                
+                <div class="order-total">
+                    <strong>Total: ${{ order.total_amount }}</strong>
                 </div>
             </div>
-
-            <div class="profile-actions">
-                <a href="{% url 'password_change' %}" class="btn-outline">
-                    Change Password
-                </a>
-                <a href="{% url 'logout' %}" class="btn-primary">
-                    Logout
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-box-open fa-4x"></i>
+            <h3>No orders yet</h3>
+            <p>Start shopping to see your orders here!</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="fas fa-shopping-bag"></i> Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Wishlist Tab -->
+    <div id="wishlist-tab" class="tab-content">
+        <h2><i class="fas fa-heart"></i> My Wishlist</h2>
+        
+        {% if wishlist_items %}
+        <div class="product-grid">
+            {% for item in wishlist_items %}
+            <div class="product-card">
+                <div class="product-image">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% else %}
+                    <div style="background: #f0f0f0; height: 100%; display: flex; align-items: center; justify-content: center; color: #999;">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="product-info">
+                    <div class="product-category">{{ item.product.category.name }}</div>
+                    <h3 class="product-title">{{ item.product.name }}</h3>
+                    <p class="product-description">{{ item.product.description|truncatechars:80 }}</p>
+                    
+                    <div class="product-price">${{ item.product.price }}</div>
+                    
+                    <div class="product-actions">
+                        {% if item.product.stock > 0 %}
+                        <a href="{% url 'add_to_cart' item.product.id %}" class="btn btn-primary">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>
+                            <i class="fas fa-times-circle"></i> Out of Stock
+                        </button>
+                        {% endif %}
+                        <a href="{% url 'remove_from_wishlist' item.product.id %}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-heart-broken fa-4x"></i>
+            <h3>Your wishlist is empty</h3>
+            <p>Add products you love to your wishlist!</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="fas fa-shopping-bag"></i> Browse Products
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Settings Tab -->
+    <div id="settings-tab" class="tab-content">
+        <h2><i class="fas fa-cog"></i> Account Settings</h2>
+        
+        <div class="settings-card">
+            <h3>Account Information</h3>
+            <div class="info-row">
+                <span>Username:</span>
+                <strong>{{ user.username }}</strong>
+            </div>
+            <div class="info-row">
+                <span>Email:</span>
+                <strong>{{ user.email|default:"Not set" }}</strong>
+            </div>
+            <div class="info-row">
+                <span>Member Since:</span>
+                <strong>{{ user.date_joined|date:"F d, Y" }}</strong>
+            </div>
+            <div class="info-row">
+                <span>Total Orders:</span>
+                <strong>{{ orders.count }}</strong>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="{% url 'logout' %}" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showTab(tabName) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab
+    document.getElementById(tabName + '-tab').classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+}
+</script>
 {% endblock %}

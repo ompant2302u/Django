@@ -1,318 +1,312 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}About Us | My Store{% endblock %}
+{% block title %}About Us - ShopEasy{% endblock %}
 
 {% block content %}
-
 <style>
-/* ---------- GLOBAL ---------- */
-.section {
-    padding: 5rem 0;
-}
-.section-title {
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-.section-subtitle {
-    color: #6b7280;
-    max-width: 600px;
-    margin: auto;
+.about-hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 5rem 2rem;
+    text-align: center;
 }
 
-/* ---------- HERO ---------- */
-.about-hero {
-    position: relative;
-    background: linear-gradient(135deg, #111827, #1f2933);
-    color: #fff;
-    padding: 6rem 0;
-    overflow: hidden;
-}
-.about-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 60%);
-}
 .about-hero h1 {
     font-size: 3rem;
-}
-.about-hero span {
-    color: #60a5fa;
-}
-
-/* ---------- INFO ---------- */
-.about-highlight {
-    background: #ffffff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-    transition: transform 0.3s ease;
-}
-.about-highlight:hover {
-    transform: translateY(-6px);
-}
-.about-icon {
-    font-size: 2rem;
-    color: #3b82f6;
-}
-
-/* ---------- VALUES ---------- */
-.value-card {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 2rem;
-    text-align: center;
-    height: 100%;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-.value-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 45px rgba(0,0,0,0.1);
-}
-.value-icon {
-    font-size: 2.2rem;
+    font-weight: 800;
     margin-bottom: 1rem;
 }
 
-/* ---------- TIMELINE ---------- */
-.timeline {
-    position: relative;
-    padding-left: 2rem;
-}
-.timeline::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #e5e7eb;
-}
-.timeline-item {
-    margin-bottom: 2rem;
-    position: relative;
-}
-.timeline-item::before {
-    content: "";
-    position: absolute;
-    left: -9px;
-    top: 6px;
-    width: 14px;
-    height: 14px;
-    background: #3b82f6;
-    border-radius: 50%;
-}
-.timeline-year {
-    font-weight: 600;
-    color: #2563eb;
+.about-section {
+    padding: 4rem 2rem;
 }
 
-/* ---------- TEAM ---------- */
-.team-card {
-    background: #fff;
-    border-radius: 1rem;
-    overflow: hidden;
+.about-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    height: 100%;
+    transition: transform 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+}
+
+.about-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+}
+
+.stats-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 4rem 2rem;
+}
+
+.stat-box {
     text-align: center;
-    transition: transform 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    padding: 2rem;
 }
-.team-card:hover {
-    transform: translateY(-8px);
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
 }
-.team-image {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
+
+.stat-label {
+    color: var(--gray);
+    font-size: 1.1rem;
 }
-.team-body {
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.team-member {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 3rem;
+    color: white;
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-year {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    min-width: 100px;
+}
+
+.timeline-content {
+    flex: 1;
+    background: white;
     padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 </style>
 
-<!-- HERO -->
-<section class="about-hero text-center">
-    <div class="container position-relative">
-        <h1>About <span>Us</span></h1>
-        <p class="mt-3 text-light opacity-75 fs-5">
-            We don’t just sell products. We build experiences people trust.
+<div class="about-hero">
+    <div class="container">
+        <h1>About ShopEasy</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Your trusted partner for quality products and exceptional service</p>
+    </div>
+</div>
+
+<div class="about-section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem;">Our Story</h2>
+            <p style="font-size: 1.1rem; color: var(--gray); line-height: 1.8;">
+                Founded in 2020, ShopEasy started with a simple mission: to make online shopping easy, 
+                reliable, and enjoyable for everyone. What began as a small startup has grown into a 
+                trusted e-commerce platform serving thousands of happy customers worldwide.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+            <div class="about-card">
+                <div class="about-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 style="text-align: center; margin-bottom: 1rem;">Our Mission</h3>
+                <p style="text-align: center; color: var(--gray);">
+                    To provide high-quality products at competitive prices while delivering 
+                    exceptional customer service and a seamless shopping experience.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 style="text-align: center; margin-bottom: 1rem;">Our Vision</h3>
+                <p style="text-align: center; color: var(--gray);">
+                    To become the most trusted and customer-centric e-commerce platform, 
+                    known for innovation, quality, and reliability.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 style="text-align: center; margin-bottom: 1rem;">Our Values</h3>
+                <p style="text-align: center; color: var(--gray);">
+                    Customer satisfaction, integrity, innovation, and sustainability 
+                    are at the core of everything we do.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="stats-section">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+            <div class="stat-box">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">5K+</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">99%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
+    <div class="container">
+        <h2 style="text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem;">Our Journey</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2020</div>
+                <div class="timeline-content">
+                    <h4>The Beginning</h4>
+                    <p>ShopEasy was founded with a vision to revolutionize online shopping.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2021</div>
+                <div class="timeline-content">
+                    <h4>Rapid Growth</h4>
+                    <p>Expanded our product catalog and reached 1,000 customers.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2023</div>
+                <div class="timeline-content">
+                    <h4>Going Global</h4>
+                    <p>Started international shipping to 50+ countries worldwide.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2026</div>
+                <div class="timeline-content">
+                    <h4>Innovation & Growth</h4>
+                    <p>Serving 10,000+ customers with cutting-edge technology and service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-section" style="background: var(--light);">
+    <div class="container">
+        <h2 style="text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Meet Our Team</h2>
+        <p style="text-align: center; color: var(--gray); margin-bottom: 3rem; font-size: 1.1rem;">
+            The passionate people behind ShopEasy
         </p>
-    </div>
-</section>
 
-<!-- STORY -->
-<section class="section">
-    <div class="container">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <h2 class="section-title mb-4">
-                    Crafted with Purpose
-                </h2>
-                <p class="text-muted mb-3">
-                    What started as a small idea has grown into a brand focused on quality, transparency, and customer happiness.
-                </p>
-                <p class="text-muted">
-                    Every decision we make is guided by one question: does this improve the customer experience?
-                </p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h4>John Smith</h4>
+                <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Founder & CEO</p>
+                <p style="color: var(--gray); font-size: 0.9rem;">Visionary leader with 15+ years in e-commerce</p>
             </div>
 
-            <div class="col-lg-6">
-                <div class="row g-4">
-                    <div class="col-6">
-                        <div class="about-highlight text-center">
-                            <div class="about-icon mb-2">
-                                <i class="bi bi-award-fill"></i>
-                            </div>
-                            <h6 class="mb-1">Quality First</h6>
-                            <small class="text-muted">Carefully selected products</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="about-highlight text-center">
-                            <div class="about-icon mb-2">
-                                <i class="bi bi-globe2"></i>
-                            </div>
-                            <h6 class="mb-1">Global Reach</h6>
-                            <small class="text-muted">Serving worldwide</small>
-                        </div>
-                    </div>
+            <div class="team-member">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
                 </div>
+                <h4>Sarah Johnson</h4>
+                <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Head of Operations</p>
+                <p style="color: var(--gray); font-size: 0.9rem;">Ensuring smooth operations and customer satisfaction</p>
+            </div>
+
+            <div class="team-member">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h4>Mike Chen</h4>
+                <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Lead Developer</p>
+                <p style="color: var(--gray); font-size: 0.9rem;">Building innovative solutions for better shopping</p>
+            </div>
+
+            <div class="team-member">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h4>Emily Davis</h4>
+                <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Customer Success</p>
+                <p style="color: var(--gray); font-size: 0.9rem;">Dedicated to making every customer happy</p>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<!-- VALUES -->
-<section class="section bg-light">
+<div class="about-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title">Our Values</h2>
-            <p class="section-subtitle">
-                Principles that guide everything we do
+        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 4rem 2rem; border-radius: 20px; text-align: center;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Join Our Journey</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
+                Be part of our growing community of satisfied customers
             </p>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="value-card">
-                    <div class="value-icon text-danger">
-                        <i class="bi bi-heart-fill"></i>
-                    </div>
-                    <h5>Customer First</h5>
-                    <p class="text-muted">People always come before profits.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="value-card">
-                    <div class="value-icon text-primary">
-                        <i class="bi bi-shield-check"></i>
-                    </div>
-                    <h5>Trust</h5>
-                    <p class="text-muted">Honest pricing and transparency.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="value-card">
-                    <div class="value-icon text-warning">
-                        <i class="bi bi-lightning-fill"></i>
-                    </div>
-                    <h5>Innovation</h5>
-                    <p class="text-muted">Always improving our platform.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="value-card">
-                    <div class="value-icon text-success">
-                        <i class="bi bi-people-fill"></i>
-                    </div>
-                    <h5>Teamwork</h5>
-                    <p class="text-muted">Great things are built together.</p>
-                </div>
-            </div>
+            <a href="{% url 'home' %}" class="btn" style="background: white; color: var(--primary); padding: 1rem 2.5rem; font-weight: 600; border-radius: 50px; text-decoration: none; display: inline-block;">
+                Start Shopping
+            </a>
         </div>
     </div>
-</section>
-
-<!-- JOURNEY -->
-<section class="section">
-    <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-4">
-                <h2 class="section-title mb-3">Our Journey</h2>
-                <p class="text-muted">
-                    A few milestones that shaped who we are today.
-                </p>
-            </div>
-
-            <div class="col-lg-8">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-year">2016</div>
-                        <p>Launched with a small but passionate team.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2019</div>
-                        <p>Expanded product range and logistics.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2022</div>
-                        <p>Started serving international customers.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2026</div>
-                        <p>Focused on sustainability and innovation.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TEAM -->
-<section class="section bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title">Meet the Team</h2>
-            <p class="section-subtitle">
-                People behind the vision
-            </p>
-        </div>
-
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="team-card">
-                    <img src="https://t3.ftcdn.net/jpg/02/95/51/66/360_F_295516639_43GmJBPVbPza25AUfC59keJIYRUTaPqV.jpg" class="team-image" alt="">
-                    <div class="team-body">
-                        <h5>John Smith</h5>
-                        <small class="text-muted">Founder & CEO</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="team-card">
-                    <img src="https://img.freepik.com/free-photo/lifestyle-people-emotions-casual-concept-confident-nice-smiling-asian-woman-cross-arms-chest-confident-ready-help-listening-coworkers-taking-part-conversation_1258-59335.jpg" class="team-image" alt="">
-                    <div class="team-body">
-                        <h5>Sarah Williams</h5>
-                        <small class="text-muted">Operations Lead</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="team-card">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600" class="team-image" alt="">
-                    <div class="team-body">
-                        <h5>Mike Johnson</h5>
-                        <small class="text-muted">Lead Developer</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+</div>
 {% endblock %}

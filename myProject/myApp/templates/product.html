@@ -1,167 +1,240 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ product.name }} - ShopEasy{% endblock %}
 
 {% block content %}
-<style>
-    .product-wrapper {
-        margin: 3rem auto;
-        animation: fadeIn 0.6s ease-in-out;
-    }
-
-    .product-card {
-        background: #fff;
-        border-radius: 14px;
-        padding: 2rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2.5rem;
-    }
-
-    .product-image {
-        background: #f5f6fa;
-        border-radius: 12px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 360px;
-    }
-
-    .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-    }
-
-    .product-image:hover img {
-        transform: scale(1.05);
-    }
-
-    .no-image {
-        color: #777;
-        font-size: 1rem;
-    }
-
-    .product-details h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.8rem;
-        color: #333;
-    }
-
-    .category {
-        display: inline-block;
-        margin-bottom: 1rem;
-        padding: 4px 10px;
-        border-radius: 20px;
-        background: #eef1ff;
-        color: #667eea;
-        font-size: 0.85rem;
-        font-weight: 500;
-    }
-
-    .price {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #667eea;
-        margin: 1rem 0;
-    }
-
-    .description {
-        color: #555;
-        line-height: 1.6;
-        margin-bottom: 1.8rem;
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .btn-primary {
-        padding: 12px 20px;
-        border-radius: 8px;
-        border: none;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-outline {
-        padding: 12px 20px;
-        border-radius: 8px;
-        background: transparent;
-        border: 1px solid #667eea;
-        color: #667eea;
-        font-size: 1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-    }
-
-    .btn-outline:hover {
-        background: #667eea;
-        color: #fff;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .product-card {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-
-<div class="container product-wrapper">
-    <div class="product-card">
-        <!-- Product Image -->
-        <div class="product-image">
-            {% if product.image %}
+<div class="container">
+    <div class="product-detail-container">
+        <div class="product-detail-grid">
+            <div class="product-detail-image">
+                {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            {% else %}
-                <div class="no-image">No Image Available</div>
-            {% endif %}
-        </div>
-
-        <!-- Product Details -->
-        <div class="product-details">
-            <span class="category">{{ product.category.name }}</span>
-            <h1>{{ product.name }}</h1>
-            <p class="price">${{ product.price }}</p>
-
-            <p class="description">
-                {{ product.description|default:"No description available for this product." }}
-            </p>
-
-            <div class="action-buttons">
-                <form method="POST" action="{% url 'add_to_cart' product.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-primary">Add to Cart</button>
-                </form>
-
-                <a href="{% url 'home' %}" class="btn-outline">Back to Shop</a>
+                {% else %}
+                <div class="no-image">
+                    <i class="fas fa-image fa-5x"></i>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="product-detail-info">
+                <div class="product-category">{{ product.category.name }}</div>
+                <h1 class="product-detail-title">{{ product.name }}</h1>
+                
+                <div class="product-detail-price">${{ product.price }}</div>
+                
+                <div class="product-stock-info">
+                    {% if product.stock > 10 %}
+                    <span class="stock-badge in-stock">
+                        <i class="fas fa-check-circle"></i> In Stock ({{ product.stock }} available)
+                    </span>
+                    {% elif product.stock > 0 %}
+                    <span class="stock-badge low-stock">
+                        <i class="fas fa-exclamation-circle"></i> Low Stock ({{ product.stock }} left)
+                    </span>
+                    {% else %}
+                    <span class="stock-badge out-of-stock">
+                        <i class="fas fa-times-circle"></i> Out of Stock
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <div class="product-description">
+                    <h3>Description</h3>
+                    <p>{{ product.description }}</p>
+                </div>
+                
+                <div class="product-actions-detail">
+                    {% if user.is_authenticated %}
+                        {% if product.stock > 0 %}
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-large">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary btn-large" disabled>
+                            <i class="fas fa-times-circle"></i> Out of Stock
+                        </button>
+                        {% endif %}
+                        
+                        {% if in_wishlist %}
+                        <a href="{% url 'remove_from_wishlist' product.id %}" class="btn btn-secondary">
+                            <i class="fas fa-heart"></i> Remove from Wishlist
+                        </a>
+                        {% else %}
+                        <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-secondary">
+                            <i class="far fa-heart"></i> Add to Wishlist
+                        </a>
+                        {% endif %}
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-large">
+                        <i class="fas fa-sign-in-alt"></i> Login to Purchase
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
+    
+    {% if related_products %}
+    <div class="related-products">
+        <div class="section-title">
+            <h2>Related Products</h2>
+        </div>
+        
+        <div class="product-grid">
+            {% for product in related_products %}
+            <div class="product-card">
+                {% if product.featured %}
+                <div class="product-badge">Featured</div>
+                {% endif %}
+                
+                <div class="product-image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                    <div style="background: #f0f0f0; height: 100%; display: flex; align-items: center; justify-content: center; color: #999;">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="product-info">
+                    <div class="product-category">{{ product.category.name }}</div>
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description|truncatechars:80 }}</p>
+                    
+                    <div class="product-price">${{ product.price }}</div>
+                    
+                    <div class="product-actions">
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.product-detail-container {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 3rem;
+}
+
+.product-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.product-detail-image {
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--light);
+}
+
+.product-detail-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.no-image {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+}
+
+.product-detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.product-detail-price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.product-stock-info {
+    margin-bottom: 2rem;
+}
+
+.stock-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.in-stock {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.low-stock {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.out-of-stock {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.product-description {
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.product-description h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.product-actions-detail {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.related-products {
+    margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .product-detail-title {
+        font-size: 1.5rem;
+    }
+    
+    .product-detail-price {
+        font-size: 2rem;
+    }
+}
+</style>
 {% endblock %}

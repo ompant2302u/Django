@@ -15,35 +15,17 @@
     </div>
 </section>
 
-<!-- Categories -->
-<div class="container">
-    <div class="section-title">
-        <h2>Shop by Category</h2>
-    </div>
-    
-    <div class="categories">
-        <a href="#" class="category-tag active" data-category="all">All Products</a>
-        {% for category in categories %}
-        <a href="#" class="category-tag" data-category="{{ category.name|lower }}">
-            {{ category.name }}
-        </a>
-        {% endfor %}
-    </div>
-</div>
-
 <!-- Featured Products -->
+{% if featured_products %}
 <div class="container">
     <div class="section-title">
         <h2>⭐ Featured Products</h2>
     </div>
     
-    {% if featured_products %}
     <div class="product-grid">
         {% for product in featured_products %}
         <div class="product-card" data-category="{{ product.category.name|lower }}">
-            {% if product.featured %}
             <div class="product-badge">Featured</div>
-            {% endif %}
             
             <div class="product-image">
                 {% if product.image %}
@@ -80,14 +62,8 @@
         </div>
         {% endfor %}
     </div>
-    {% else %}
-    <div class="empty-state">
-        <i class="fas fa-box-open fa-4x"></i>
-        <h3>No featured products yet</h3>
-        <p>Check back soon for amazing deals!</p>
-    </div>
-    {% endif %}
 </div>
+{% endif %}
 
 <!-- All Products -->
 <div class="container" id="products">
@@ -100,9 +76,9 @@
         {% for product in products %}
         <div class="product-card" data-category="{{ product.category.name|lower }}">
             {% if product.stock == 0 %}
-            <div class="product-badge" style="background: #dc3545;">Out of Stock</div>
+            <div class="product-badge" style="background: var(--danger);">Out of Stock</div>
             {% elif product.stock < 10 %}
-            <div class="product-badge" style="background: #ffc107; color: #000;">Low Stock</div>
+            <div class="product-badge" style="background: var(--warning); color: #000;">Low Stock</div>
             {% endif %}
             
             <div class="product-image">
@@ -168,7 +144,7 @@
         <div class="newsletter-content">
             <h2>Stay Updated</h2>
             <p>Subscribe to our newsletter for the latest deals and offers</p>
-            <form class="newsletter-form">
+            <form class="newsletter-form" onsubmit="return false;">
                 <input type="email" placeholder="Enter your email" required>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-paper-plane"></i> Subscribe
@@ -177,7 +153,4 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block extra_css %}
 {% endblock %}
